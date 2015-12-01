@@ -112,9 +112,10 @@ int move()																			// create new function to use for moving the player
 	}
 	if ((Robot.position.x == 3) && (Robot.position.y == 3))							// if you move to the space with the gold
 	{
-		cout << "You found the gold!\n CONGRATULATIONS, YOU WIN!" << endl;			// you find the gold and you win!
-		return 0;																	// the program terminates
+		cout << "You found the gold! You win!" << endl;								// you find the gold and win
+		return 0;																	// the project terminates
 	}
+
 
 
 	cout << "Move again: ";															// output to tell the player to move again

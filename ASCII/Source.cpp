@@ -15,24 +15,31 @@ using namespace std;
 char fname[] = "Guy";
 char mname[] = "Christopher";
 char lname[] = "Goudeau";
+char smiles = 1;
 
-void ASCIIconversion(string stuff)
+void ASCIIconversion(char stuff[])
 {
-	for (int i = 0; i < stuff.length(); i++) 
+	for (int i = 0; i < strlen(stuff); i++)
 	{
-		char x = stuff.at(i);
-		cout << int(x) << " ";
+		if (stuff[i + 1] == char(32) || stuff[i + 1] == NULL)
+		{
+			cout << smiles << " ";
+		}
+		else
+		{
+			cout << (int)stuff[i] << " ";
+		}
 	}
 }
 
 
 int main()
 {
-	string words;
+	char name[25];
 	cout << "Give input to be converted to ASCII: ";
-	getline(cin, words);
+	cin.getline(name, 100);
 	cout << endl;
-	ASCIIconversion(words);
+	ASCIIconversion(name);
 	cout << endl << endl;
 
 	cout << "Name (Guy Christopher Goudeau) in ASCII: ";
