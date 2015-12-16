@@ -1,4 +1,5 @@
 #pragma once
+using namespace std;
 
 template <typename V>
 class Vectors
@@ -26,7 +27,7 @@ public:
 		z = c;
 		w = d;
 	}
-	Vectors twoAdd(Vectors &other)
+	Vectors operator+(Vectors &other)
 	{
 		Vectors temp(0, 0);
 		temp.x = x + other.x;
@@ -41,12 +42,11 @@ public:
 		temp.z = z + other.z;
 		return temp;
 	}
-	Vectors twoSub(Vectors &other)
+	Vectors operator-(Vectors &other)
 	{
-		Vectors temp(0, 0, 0);
+		Vectors temp(0, 0);
 		temp.x = x - other.x;
 		temp.y = y - other.y;
-		temp.z = z - other.z;
 		return temp;
 	}
 	Vectors threeSub(Vectors &other)
@@ -94,7 +94,7 @@ public:
 		temp.w = w / length;
 		return temp;
 	}
-	int twoDotProd(Vectors &other)
+	int operator*(Vectors &other)
 	{
 		int dot;
 		Vectors temp(0, 0);
@@ -140,6 +140,50 @@ public:
 	void fourPrint()
 	{
 		cout << "( " << x << " , " << y << " , " << z << " , " << w << " )" << endl;
+	}
+	float lerp(float p0, float p1, float percent)
+	{
+		return p0 + percent * (p1 - p0);
+	}
+};
+
+class Node
+{
+public:
+	Node *next;
+	Node *prev;
+	int dickbutt;
+
+	Node(int a)
+	{
+		dickbutt = a;
+	}
+	void Next(Node &n)
+	{
+		next = &n;
+		n.next = NULL;
+	}
+	void Prev(Node &n)
+	{
+		prev = &n;
+	}
+	void Read(Node &start)
+	{
+		Node *temp(0); 
+		temp = &start;
+		for (int i = 0; i < 50; i++)
+		{
+			if (temp->next == NULL)
+			{
+				cout << temp->dickbutt << endl;
+				break;
+			}
+			else
+			{
+				cout << temp->dickbutt << endl;
+				temp = temp->next;
+			}
+		}
 	}
 };
 
