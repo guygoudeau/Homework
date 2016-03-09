@@ -15,7 +15,7 @@ namespace Combat
     }
     interface IActions
     {
-        void Attack();
+        void Attack(Player player, Enemy enemy);
         void Abilities();
         void Items();
     }
@@ -73,9 +73,9 @@ namespace Combat
             health -= d;
         }
 
-        public void Attack()
+        public void Attack(Player player, Enemy enemy)
         {
-            throw new NotImplementedException();
+            enemy.takeDamage(player.strength);
         }
 
         public void Abilities()
@@ -137,9 +137,9 @@ namespace Combat
             health -= d;
         }
 
-        public void Attack()
+        public void Attack(Player player, Enemy enemy)
         {
-            throw new NotImplementedException();
+            player.takeDamage(enemy.strength);
         }
 
         public void Abilities()
@@ -157,6 +157,13 @@ namespace Combat
     {
         static void Main(string[] args)
         {
+            Player Guy = new Player();
+            Enemy Chaos = new Enemy();
+
+            Guy.Attack(Guy, Chaos);
+            Chaos.Attack(Guy, Chaos);
+            Console.WriteLine(Guy.health + " " + Chaos.health);
+            Console.ReadLine();
         }
     }
 }
