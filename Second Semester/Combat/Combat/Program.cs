@@ -16,7 +16,7 @@ namespace Combat
     interface IActions
     {
         void Attack(Player player, Enemy enemy);
-        void Abilities();
+        void Abilities(Player player, Enemy enemy);
         void Items();
     }
     interface IItems
@@ -32,6 +32,7 @@ namespace Combat
         private int str;
         private int pots;
         private int elx;
+        private string nam;
 
         public Player()
         {
@@ -40,6 +41,7 @@ namespace Combat
             str = 10;
             pots = 5;
             elx = 3;
+            nam = "Guy";
         }
 
         public int health
@@ -67,6 +69,11 @@ namespace Combat
             get { return elx; }
             set { elx = value; }
         }
+        public string name
+        {
+            get { return nam; }
+            set { nam = value; }
+        }
 
         public void takeDamage(int d)
         {
@@ -75,17 +82,72 @@ namespace Combat
 
         public void Attack(Player player, Enemy enemy)
         {
+            Console.WriteLine(name + " attacked! " + enemy.name + " takes " + strength + " damage.");
             enemy.takeDamage(player.strength);
         }
 
-        public void Abilities()
+        public void Abilities(Player player, Enemy enemy)
         {
-            throw new NotImplementedException();
+            Random random = new Random();
+            int choice = random.Next(1, 3);
+            if (choice == 1)
+            {
+                if (energy >= 20)
+                {
+                    Console.WriteLine(name + " used Strong Attack! Did 20 damage, lost 20 energy.");
+                    enemy.takeDamage(20);
+                    energy -= 20;
+                }
+                else
+                {
+                    Console.WriteLine("Not enough energy to use move!");
+                }
+            }
+            if (choice == 2)
+            {
+                if (energy >= 15)
+                {
+                    Console.WriteLine(name + " used Heal! Restored 25 health, lost 15 energy.");
+                    health += 25;
+                    energy -= 15;
+                }
+                else
+                {
+                    Console.WriteLine("Not enough energy to use move!");
+                }
+            }
         }
 
         public void Items()
         {
-            throw new NotImplementedException();
+            Random random = new Random();
+            int choice = random.Next(1, 3);
+            if (choice == 1)
+            {
+                if (potions != 0)
+                {
+                    Console.WriteLine(name + " used a potion! Restored 30 health.");
+                    health += 30;
+                    potions -= 1;
+                }
+                else
+                {
+                    Console.WriteLine("No potions left!");
+                }
+            }
+            if (choice == 2)
+            {
+                if (elixers != 0)
+                {
+                    Console.WriteLine(name + " used an elixer! Restored 30 energy.");
+                    energy += 30;
+                    elixers -= 1;
+                }
+                else
+                {
+                    Console.WriteLine("No elixers left");
+                }
+            }
         }
     }
 
@@ -96,6 +158,7 @@ namespace Combat
         private int str;
         private int pots;
         private int elx;
+        private string nam;
 
         public Enemy()
         {
@@ -104,6 +167,7 @@ namespace Combat
             str = 10;
             pots = 5;
             elx = 3;
+            nam = "Chaos";
         }
 
         public int health
@@ -131,6 +195,11 @@ namespace Combat
             get { return elx; }
             set { elx = value; }
         }
+        public string name
+        {
+            get { return nam; }
+            set { nam = value; }
+        }
 
         public void takeDamage(int d)
         {
@@ -139,17 +208,72 @@ namespace Combat
 
         public void Attack(Player player, Enemy enemy)
         {
+            Console.WriteLine(name + " attacked! " + player.name + " takes " + strength + " damage.");
             player.takeDamage(enemy.strength);
         }
 
-        public void Abilities()
+        public void Abilities(Player player, Enemy enemy)
         {
-            throw new NotImplementedException();
+            Random random = new Random();
+            int choice = random.Next(1, 3);
+            if (choice == 1) 
+            {
+                if (energy >= 20)
+                {
+                    Console.WriteLine(name + " used Strong Attack! Did 20 damage, lost 20 energy.");
+                    player.takeDamage(20);
+                    energy -= 20;
+                }
+                else
+                {
+                    Console.WriteLine("Not enough energy to use move!");
+                }
+            }
+            if (choice == 2)
+            {
+                if (energy >= 15)
+                {
+                    Console.WriteLine(name + " used Heal! Restored 25 health, lost 15 energy.");
+                    health += 25;
+                    energy -= 15;
+                }
+                else
+                {
+                    Console.WriteLine("Not enough energy to use move!");
+                }
+            }
         }
-
+        
         public void Items()
         {
-            throw new NotImplementedException();
+            Random random = new Random();
+            int choice = random.Next(1, 3);
+            if (choice == 1)
+            {
+                if (potions != 0)
+                {
+                    Console.WriteLine(name + " used a potion! Restored 30 health.");
+                    health += 30;
+                    potions -= 1;
+                }
+                else
+                {
+                    Console.WriteLine("No potions left!");
+                }
+            }
+            if (choice == 2)
+            {
+                if (elixers != 0)
+                {
+                    Console.WriteLine(name + " used an elixer! Restored 30 energy.");
+                    energy += 30;
+                    elixers -= 1;
+                }
+                else
+                {
+                    Console.WriteLine("No elixers left");
+                }
+            }
         }
     }
 
@@ -157,12 +281,17 @@ namespace Combat
     {
         static void Main(string[] args)
         {
-            Player Guy = new Player();
-            Enemy Chaos = new Enemy();
+            Player player = new Player();
+            Enemy enemy = new Enemy();
 
-            Guy.Attack(Guy, Chaos);
-            Chaos.Attack(Guy, Chaos);
-            Console.WriteLine(Guy.health + " " + Chaos.health);
+            player.Attack(player, enemy);
+            enemy.Attack(player, enemy);
+            player.Abilities(player, enemy);
+            enemy.Abilities(player, enemy);
+            player.Items();
+            enemy.Items();
+            Console.WriteLine("Player health: " + player.health + " ------ Enemy health: " + enemy.health);
+            Console.WriteLine("Player energy: " + player.energy + " ------ Enemy energy: " + enemy.energy);
             Console.ReadLine();
         }
     }
