@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
 
 namespace Combat
 {
     interface IDamageable
     {
-        void takeDamage(int dam);
+        int takeDamage(int dam);
     }
     interface IStats
     {
@@ -15,7 +20,7 @@ namespace Combat
     }
     interface IActions
     {
-        void Attack(Player player, Enemy enemy);
+        int Attack(Player player, Enemy enemy);
         void Abilities(Player player, Enemy enemy);
         void Items();
         void Fight(Player player, Enemy enemy);
@@ -43,7 +48,7 @@ namespace Combat
             str = 10;
             pots = 5;
             elx = 5;
-            nam = "Tony";
+            nam = "Guy";
         }
 
         public int health
@@ -77,9 +82,9 @@ namespace Combat
             set { nam = value; }
         }
 
-        public void takeDamage(int d)
+        public int takeDamage(int d)
         {
-            health -= d;
+            
             if (health <= 0)
             {
                 Console.WriteLine("\n" + name + " is out of health! " + name + " loses!");
@@ -87,12 +92,14 @@ namespace Combat
                 Console.ReadKey();
                 Environment.Exit(0);
             }
+            return health -= d;
+
         }
 
-        public void Attack(Player player, Enemy enemy)
+        public int Attack(Player player, Enemy enemy)
         {
             Console.WriteLine("\n" + name + " attacked! " + enemy.name + " takes " + strength + " damage.");
-            enemy.takeDamage(player.strength);
+            return enemy.takeDamage(player.strength);
         }
 
         public void Abilities(Player player, Enemy enemy)
@@ -173,7 +180,7 @@ namespace Combat
                     Console.WriteLine("\n\nError: Unacceptable input. Lost turn due to inability to follow directions.");
                     break;
             }
-            if (health > 100) 
+            if (health > 100)
             {
                 health = 100;
             }
@@ -263,9 +270,9 @@ namespace Combat
             set { nam = value; }
         }
 
-        public void takeDamage(int d)
+        public int takeDamage(int d)
         {
-            health -= d;
+            
             if (health <= 0)
             {
                 Console.WriteLine("\n" + name + " is out of health! " + name + " loses!");
@@ -273,12 +280,13 @@ namespace Combat
                 Console.ReadKey();
                 Environment.Exit(0);
             }
+            return health -= d;
         }
 
-        public void Attack(Player player, Enemy enemy)
+        public int Attack(Player player, Enemy enemy)
         {
             Console.WriteLine(name + " attacked! " + player.name + " takes " + strength + " damage.");
-            player.takeDamage(enemy.strength);
+            return player.takeDamage(enemy.strength);
         }
 
         public void Abilities(Player player, Enemy enemy)
@@ -321,7 +329,7 @@ namespace Combat
         {
             Random random = new Random();
             int rand = random.Next(1, 3);
-            if (rand == 1) 
+            if (rand == 1)
             {
                 if (potions != 0)
                 {
@@ -372,24 +380,6 @@ namespace Combat
             if (rand == 3)
             {
                 Items();
-            }
-        }
-    }
-
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Player player = new Player();
-            Enemy enemy = new Enemy();
-
-            while (player.health >= 0 || enemy.health >= 0)
-            {
-                player.Fight(player, enemy);
-                enemy.Fight(player, enemy);
-                Console.WriteLine("\nPress any key to continue...");
-                Console.ReadKey();
-                Console.Clear();
             }
         }
     }
