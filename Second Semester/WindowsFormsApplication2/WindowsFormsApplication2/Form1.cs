@@ -22,18 +22,8 @@ namespace WindowsFormsApplication2
 
         private void attack_Click(object sender, EventArgs e)
         {
-            
-            combatLog.Text = "get hit sucka for " + player.Attack(player, enemy).ToString();
-        }
-
-        private void abilities_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void items_Click(object sender, EventArgs e)
-        {
-
+            combatLog.Text = "Hit for " + player.strength + ". Remaining HP: " + player.Attack(enemy).ToString();
+            player = player.LevelUp();
         }
     }
 }
