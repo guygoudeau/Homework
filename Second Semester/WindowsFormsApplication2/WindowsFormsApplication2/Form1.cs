@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Combat;
+using System;
 using System.Windows.Forms;
 
 namespace WindowsFormsApplication2
 {
     public partial class Form1 : Form
     {
-        Combat.Player player = new Combat.Player();
-        Combat.Enemy enemy = new Combat.Enemy();
+        Player player = Player.instance;
+        Enemy enemy = new Enemy();
         public Form1()
         {
             
@@ -22,6 +16,7 @@ namespace WindowsFormsApplication2
 
         private void attack_Click(object sender, EventArgs e)
         {
+            
             if (player.health > 0)
             {
                 combatLog.AppendText("Player hit Enemy for " + player.strength + " damage.\n");

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using FinateStateMachine;
 
 namespace Combat
 {
+    enum States {INIT, ATTACK, WAIT,}
+
     interface IDamageable
     {
         int takeDamage(int d);
@@ -32,10 +35,24 @@ namespace Combat
 
     class Player : IDamageable, IStats, IPlayerAttack, ILevel, IKill
     {
+        static private Player _instance;
+        static public Player instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new Player();
+                }
+                return _instance;
+            }
+        }
+
         private int hp;
         private int str;
         private int lvl;
         private int exp;
+        private FSM<States> playerMachine = new FSM<States>(States.INIT);
 
         public Player()
         {
@@ -43,6 +60,11 @@ namespace Combat
             str = 10;
             lvl = 1;
             exp = 0;
+            playerMachine.AddState(States.ATTACK);
+            playerMachine.AddState(States.WAIT);
+            playerMachine.AddTransition(States.INIT, States.ATTACK);
+            playerMachine.AddTransition(States.ATTACK, States.WAIT);
+            playerMachine.AddTransition(States.WAIT, States.ATTACK);
         }
 
         public int health
@@ -98,11 +120,17 @@ namespace Combat
     {
         private int hp;
         private int str;
+        private FSM<States> enemyMachine = new FSM<States>(States.INIT);
 
         public Enemy()
         {
             hp = 100;
             str = 10;
+            enemyMachine.AddState(States.ATTACK);
+            enemyMachine.AddState(States.WAIT);
+            enemyMachine.AddTransition(States.INIT, States.ATTACK);
+            enemyMachine.AddTransition(States.ATTACK, States.WAIT);
+            enemyMachine.AddTransition(States.WAIT, States.ATTACK);
         }
 
         public int health
