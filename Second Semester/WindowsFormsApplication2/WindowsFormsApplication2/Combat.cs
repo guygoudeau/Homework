@@ -12,18 +12,25 @@ namespace Combat
         int health { get; set; }
         int strength { get; set; }
     }
-    interface IActions
+    interface IPlayerAttack
     {
-        int Attack(IDamageable dam);
+        int Attack(Enemy other);
+    }
+    interface IEnemyAttack
+    {
+        int Attack(Player other);
     }
     interface ILevel
     {
         int level { get; set; }
         int experience { get; set; }
-        Player LevelUp();
+    }
+    interface IKill
+    {
+        Player Kill(Enemy other);
     }
 
-    class Player : IDamageable, IStats, IActions, ILevel
+    class Player : IDamageable, IStats, IPlayerAttack, ILevel, IKill
     {
         private int hp;
         private int str;
@@ -34,7 +41,7 @@ namespace Combat
         {
             hp = 100;
             str = 10;
-            lvl = 0;
+            lvl = 1;
             exp = 0;
         }
 
@@ -64,27 +71,30 @@ namespace Combat
             return health -= d;
         }
 
-        public int Attack(IDamageable dam)
+        public int Attack(Enemy other)
         {
-            return takeDamage(strength);
+            return other.takeDamage(strength);
         }
 
-        public Player LevelUp()
+        public Player Kill(Enemy other)
         {
+            experience += 25;
             Player temp = this;
-            if (experience == 25 + (level*50))
+            if (other.health <= 0)
             {
-                temp.level += 1;
-                temp.health = 100;
-                temp.health += 5 * level;
-                temp.strength += 5;
+                if (experience == 25 + (level * 50))
+                {
+                    temp.level += 1;
+                    temp.health = 100;
+                    temp.health += 5 * level;
+                    temp.strength += 5;
+                }
             }
             return temp;
         }
-        
     }
 
-    class Enemy : IDamageable, IStats, IActions
+    class Enemy : IDamageable, IStats, IEnemyAttack
     {
         private int hp;
         private int str;
@@ -112,9 +122,9 @@ namespace Combat
             return health -= d;
         }
 
-        public int Attack(IDamageable dam)
+        public int Attack(Player other)
         {
-            return takeDamage(strength);
+            return other.takeDamage(strength);
         }
     }
 }
