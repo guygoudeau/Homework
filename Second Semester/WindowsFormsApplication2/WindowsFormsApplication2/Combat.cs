@@ -52,7 +52,7 @@ namespace Combat
         private int str;
         private int lvl;
         private int exp;
-        private FSM<States> playerMachine = new FSM<States>(States.INIT);
+        public FSM<States> playerMachine = new FSM<States>(States.INIT);
 
         public Player()
         {
@@ -120,12 +120,12 @@ namespace Combat
     {
         private int hp;
         private int str;
-        private FSM<States> enemyMachine = new FSM<States>(States.INIT);
+        public FSM<States> enemyMachine = new FSM<States>(States.INIT);
 
         public Enemy()
         {
-            hp = 100;
-            str = 10;
+            hp = 50;
+            str = 3;
             enemyMachine.AddState(States.ATTACK);
             enemyMachine.AddState(States.WAIT);
             enemyMachine.AddTransition(States.INIT, States.ATTACK);
