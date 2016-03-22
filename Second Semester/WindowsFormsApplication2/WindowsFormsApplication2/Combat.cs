@@ -52,7 +52,7 @@ namespace Combat
         private int str;
         private int lvl;
         private int exp;
-        public FSM<States> playerMachine = new FSM<States>(States.INIT);
+        public FSM<States> machine = new FSM<States>(States.INIT);
 
         public Player()
         {
@@ -60,11 +60,11 @@ namespace Combat
             str = 10;
             lvl = 1;
             exp = 0;
-            playerMachine.AddState(States.ATTACK);
-            playerMachine.AddState(States.WAIT);
-            playerMachine.AddTransition(States.INIT, States.ATTACK);
-            playerMachine.AddTransition(States.ATTACK, States.WAIT);
-            playerMachine.AddTransition(States.WAIT, States.ATTACK);
+            machine.AddState(States.ATTACK);
+            machine.AddState(States.WAIT);
+            machine.AddTransition(States.INIT, States.ATTACK);
+            machine.AddTransition(States.ATTACK, States.WAIT);
+            machine.AddTransition(States.WAIT, States.ATTACK);
         }
 
         public int health
@@ -120,17 +120,17 @@ namespace Combat
     {
         private int hp;
         private int str;
-        public FSM<States> enemyMachine = new FSM<States>(States.INIT);
+        public FSM<States> machine = new FSM<States>(States.INIT);
 
         public Enemy()
         {
             hp = 50;
             str = 3;
-            enemyMachine.AddState(States.ATTACK);
-            enemyMachine.AddState(States.WAIT);
-            enemyMachine.AddTransition(States.INIT, States.ATTACK);
-            enemyMachine.AddTransition(States.ATTACK, States.WAIT);
-            enemyMachine.AddTransition(States.WAIT, States.ATTACK);
+            machine.AddState(States.ATTACK);
+            machine.AddState(States.WAIT);
+            machine.AddTransition(States.INIT, States.ATTACK);
+            machine.AddTransition(States.ATTACK, States.WAIT);
+            machine.AddTransition(States.WAIT, States.ATTACK);
         }
 
         public int health

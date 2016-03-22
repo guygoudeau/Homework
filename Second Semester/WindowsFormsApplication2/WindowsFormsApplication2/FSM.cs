@@ -4,20 +4,32 @@ using System.Linq;
 
 namespace FinateStateMachine
 {
+    ///
     struct Link<T>
     {
         public T from;
         public T to;
     }
 
+    /// <summary>
+    /// this is fsm
+    /// </summary>
+    /// <typeparam name="T">this needs to be a list of enums or some shit</typeparam>
     class FSM<T>
     {
         private Dictionary<T, List<Link<T>>> dict = new Dictionary<T, List<Link<T>>>();
 
         T currentState;
-
+        public Enum cState
+        {
+            get { return currentState as Enum; }
+            
+        }
         public FSM(T initial)
         {
+            
+         //   var v = Enum.GetValues(typeof(T));
+         // look up how to find out all enums from a generic type
             AddState(initial);
             currentState = initial;
         }
@@ -31,6 +43,7 @@ namespace FinateStateMachine
             dict.Add(state, new List<Link<T>>());
             return true;
         }
+
 
         public bool AddTransition(T from, T to)
         {

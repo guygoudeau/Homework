@@ -46,9 +46,8 @@
             this.pl_label = new System.Windows.Forms.Label();
             this.pe_label = new System.Windows.Forms.Label();
             this.newGame_button = new System.Windows.Forms.Button();
+            this.cphase_label = new System.Windows.Forms.Label();
             this.phase_label = new System.Windows.Forms.Label();
-            this.eph_label = new System.Windows.Forms.Label();
-            this.pph_label = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // attack
@@ -210,39 +209,30 @@
             this.newGame_button.UseVisualStyleBackColor = true;
             this.newGame_button.Click += new System.EventHandler(this.newGame_button_Click);
             // 
+            // cphase_label
+            // 
+            this.cphase_label.AutoSize = true;
+            this.cphase_label.Location = new System.Drawing.Point(204, 310);
+            this.cphase_label.Name = "cphase_label";
+            this.cphase_label.Size = new System.Drawing.Size(77, 13);
+            this.cphase_label.TabIndex = 24;
+            this.cphase_label.Text = "Current Phase:";
+            // 
             // phase_label
             // 
             this.phase_label.AutoSize = true;
-            this.phase_label.Location = new System.Drawing.Point(221, 292);
+            this.phase_label.Location = new System.Drawing.Point(307, 310);
             this.phase_label.Name = "phase_label";
-            this.phase_label.Size = new System.Drawing.Size(74, 13);
-            this.phase_label.TabIndex = 24;
-            this.phase_label.Text = "Current Phase";
-            // 
-            // eph_label
-            // 
-            this.eph_label.AutoSize = true;
-            this.eph_label.Location = new System.Drawing.Point(382, 317);
-            this.eph_label.Name = "eph_label";
-            this.eph_label.Size = new System.Drawing.Size(0, 13);
-            this.eph_label.TabIndex = 25;
-            // 
-            // pph_label
-            // 
-            this.pph_label.AutoSize = true;
-            this.pph_label.Location = new System.Drawing.Point(97, 317);
-            this.pph_label.Name = "pph_label";
-            this.pph_label.Size = new System.Drawing.Size(0, 13);
-            this.pph_label.TabIndex = 26;
+            this.phase_label.Size = new System.Drawing.Size(0, 13);
+            this.phase_label.TabIndex = 26;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(742, 538);
-            this.Controls.Add(this.pph_label);
-            this.Controls.Add(this.eph_label);
             this.Controls.Add(this.phase_label);
+            this.Controls.Add(this.cphase_label);
             this.Controls.Add(this.newGame_button);
             this.Controls.Add(this.pe_label);
             this.Controls.Add(this.pl_label);
@@ -288,9 +278,8 @@
         private System.Windows.Forms.Label pl_label;
         private System.Windows.Forms.Label pe_label;
         private System.Windows.Forms.Button newGame_button;
+        private System.Windows.Forms.Label cphase_label;
         private System.Windows.Forms.Label phase_label;
-        private System.Windows.Forms.Label eph_label;
-        private System.Windows.Forms.Label pph_label;
     }
 }
 
