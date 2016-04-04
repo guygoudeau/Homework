@@ -48,6 +48,8 @@
             this.newGame_button = new System.Windows.Forms.Button();
             this.cphase_label = new System.Windows.Forms.Label();
             this.phase_label = new System.Windows.Forms.Label();
+            this.save_button = new System.Windows.Forms.Button();
+            this.load_button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // attack
@@ -226,11 +228,33 @@
             this.phase_label.Size = new System.Drawing.Size(0, 13);
             this.phase_label.TabIndex = 26;
             // 
+            // save_button
+            // 
+            this.save_button.Location = new System.Drawing.Point(502, 102);
+            this.save_button.Name = "save_button";
+            this.save_button.Size = new System.Drawing.Size(75, 23);
+            this.save_button.TabIndex = 27;
+            this.save_button.Text = "Save";
+            this.save_button.UseVisualStyleBackColor = true;
+            this.save_button.Click += new System.EventHandler(this.save_button_Click);
+            // 
+            // load_button
+            // 
+            this.load_button.Location = new System.Drawing.Point(502, 153);
+            this.load_button.Name = "load_button";
+            this.load_button.Size = new System.Drawing.Size(75, 23);
+            this.load_button.TabIndex = 28;
+            this.load_button.Text = "Load";
+            this.load_button.UseVisualStyleBackColor = true;
+            this.load_button.Click += new System.EventHandler(this.load_button_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(742, 538);
+            this.Controls.Add(this.load_button);
+            this.Controls.Add(this.save_button);
             this.Controls.Add(this.phase_label);
             this.Controls.Add(this.cphase_label);
             this.Controls.Add(this.newGame_button);
@@ -280,6 +304,8 @@
         private System.Windows.Forms.Button newGame_button;
         private System.Windows.Forms.Label cphase_label;
         private System.Windows.Forms.Label phase_label;
+        private System.Windows.Forms.Button save_button;
+        private System.Windows.Forms.Button load_button;
     }
 }
 

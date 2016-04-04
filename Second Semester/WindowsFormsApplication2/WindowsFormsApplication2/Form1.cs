@@ -2,14 +2,18 @@
 using System;
 using System.Windows.Forms;
 using FinateStateMachine;
+using Serializer;
+
 namespace WindowsFormsApplication2
 {
     public partial class Form1 : Form
     {
+        private SaveGameData SuperSave;
         private Player player = Player.instance;
         private Enemy enemy = new Enemy();
         public Form1()
         {
+            
             InitializeComponent();
             phase_label.Text = GameState.init.ToString();
             attack.Enabled = false;
@@ -24,13 +28,32 @@ namespace WindowsFormsApplication2
             GAMEFSM.AddTransition(GameState.enemy, GameState.player);
             GAMEFSM.AddTransition(GameState.player, GameState.end);
             GAMEFSM.AddTransition(GameState.enemy, GameState.end);
+            SuperSave = new SaveGameData();
         }
 
         private FSM<GameState> GAMEFSM;
         enum GameState
         {
-            init,player,enemy,end
+            init, player, enemy, end
         }
+
+        [Serializable]
+        public class SaveGameData
+        {
+            public SaveGameData() { }
+            public SaveGameData(int hp, int str, int lvl, int exp)
+            {
+                SaveHealth = hp;
+                SaveStrength = str;
+                SaveLevel = lvl;
+                SaveExperience = exp;
+            }            
+            public int SaveHealth;
+            public int SaveStrength;
+            public int SaveLevel;
+            public int SaveExperience;
+        }
+        
 
         private void updateLabels()
         {
@@ -70,7 +93,7 @@ namespace WindowsFormsApplication2
         }
 
         private void updateEnemy()
-        { 
+        {
             if (player.health > 0)
             {
                 combatLog.AppendText("Enemy hit Player for " + enemy.strength + " damage.\n");
@@ -103,11 +126,15 @@ namespace WindowsFormsApplication2
         private void attack_Click(object sender, EventArgs e)
         {
             playerHandler();
+            SaveGameData save = new SaveGameData(player.health, player.strength, player.level, player.experience);
+            SuperSave = save;
         }
 
         private void enemy_attack_Click(object sender, EventArgs e)
         {
             enemyHandler();
+            SaveGameData save = new SaveGameData(player.health, player.strength, player.level, player.experience);
+            SuperSave = save;
         }
 
         private void newGame_button_Click(object sender, EventArgs e)
@@ -123,6 +150,28 @@ namespace WindowsFormsApplication2
             updateLabels();
             attack.Enabled = true;
             enemy_attack.Enabled = false;
+            SaveGameData save = new SaveGameData(player.health, player.strength, player.level, player.experience);
+            SuperSave = save;
+        }
+
+        private void save_button_Click(object sender, EventArgs e)
+        {
+            string path = @"C:\Users\Guy.Goudeau\Desktop\Homework\Second Semester\WindowsFormsApplication2\WindowsFormsApplication2\Saves\";
+            Utilities.SerializeXML<SaveGameData>("Stats", SuperSave, path);
+        }
+
+        private void load_button_Click(object sender, EventArgs e)
+        {
+            combatLog.Clear();
+            combatLog.AppendText("Game has been loaded.\n");
+            string path = @"C:\Users\Guy.Goudeau\Desktop\Homework\Second Semester\WindowsFormsApplication2\WindowsFormsApplication2\Saves\Stats";
+            Utilities.DeserializeXML<SaveGameData>(path);
+            player.health = SuperSave.SaveHealth;
+            player.strength = SuperSave.SaveStrength;
+            player.level = SuperSave.SaveLevel;
+            player.experience = SuperSave.SaveExperience;
+            enemy.health = 50;
+            updateLabels();
         }
     }
 }

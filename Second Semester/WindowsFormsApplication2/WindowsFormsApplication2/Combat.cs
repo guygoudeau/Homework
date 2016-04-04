@@ -4,7 +4,6 @@ using FinateStateMachine;
 
 namespace Combat
 {
-    enum States {INIT, ATTACK, WAIT,}
 
     interface IDamageable
     {
@@ -52,7 +51,6 @@ namespace Combat
         private int str;
         private int lvl;
         private int exp;
-        public FSM<States> machine = new FSM<States>(States.INIT);
 
         public Player()
         {
@@ -60,11 +58,6 @@ namespace Combat
             str = 10;
             lvl = 1;
             exp = 0;
-            machine.AddState(States.ATTACK);
-            machine.AddState(States.WAIT);
-            machine.AddTransition(States.INIT, States.ATTACK);
-            machine.AddTransition(States.ATTACK, States.WAIT);
-            machine.AddTransition(States.WAIT, States.ATTACK);
         }
 
         public int health
@@ -120,17 +113,11 @@ namespace Combat
     {
         private int hp;
         private int str;
-        public FSM<States> machine = new FSM<States>(States.INIT);
 
         public Enemy()
         {
             hp = 50;
             str = 3;
-            machine.AddState(States.ATTACK);
-            machine.AddState(States.WAIT);
-            machine.AddTransition(States.INIT, States.ATTACK);
-            machine.AddTransition(States.ATTACK, States.WAIT);
-            machine.AddTransition(States.WAIT, States.ATTACK);
         }
 
         public int health
