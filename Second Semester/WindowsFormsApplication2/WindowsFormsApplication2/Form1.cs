@@ -158,6 +158,7 @@ namespace WindowsFormsApplication2
         {
             string path = @"C:\Users\Guy.Goudeau\Desktop\Homework\Second Semester\WindowsFormsApplication2\WindowsFormsApplication2\Saves\";
             Utilities.SerializeXML<SaveGameData>("Stats", SuperSave, path);
+            combatLog.AppendText("Game has been saved.\n");
         }
 
         private void load_button_Click(object sender, EventArgs e)
@@ -166,10 +167,11 @@ namespace WindowsFormsApplication2
             combatLog.AppendText("Game has been loaded.\n");
             string path = @"C:\Users\Guy.Goudeau\Desktop\Homework\Second Semester\WindowsFormsApplication2\WindowsFormsApplication2\Saves\Stats";
             Utilities.DeserializeXML<SaveGameData>(path);
-            player.health = SuperSave.SaveHealth;
-            player.strength = SuperSave.SaveStrength;
-            player.level = SuperSave.SaveLevel;
-            player.experience = SuperSave.SaveExperience;
+            SaveGameData save = Utilities.DeserializeXML<SaveGameData>(path);
+            player.health = save.SaveHealth;
+            player.strength = save.SaveStrength;
+            player.level = save.SaveLevel;
+            player.experience = save.SaveExperience;
             enemy.health = 50;
             updateLabels();
         }
