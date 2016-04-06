@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <SaveGameData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SaveHealth>100</SaveHealth>
+  <SaveHealth>94</SaveHealth>
   <SaveStrength>10</SaveStrength>
   <SaveLevel>1</SaveLevel>
   <SaveExperience>0</SaveExperience>

@@ -156,7 +156,7 @@ namespace WindowsFormsApplication2
 
         private void save_button_Click(object sender, EventArgs e)
         {
-            string path = @"C:\Users\Guy.Goudeau\Desktop\Homework\Second Semester\WindowsFormsApplication2\WindowsFormsApplication2\Saves\";
+            string path = Environment.CurrentDirectory + @"\Saves\";
             Utilities.SerializeXML<SaveGameData>("Stats", SuperSave, path);
             combatLog.AppendText("Game has been saved.\n");
         }
@@ -165,7 +165,7 @@ namespace WindowsFormsApplication2
         {
             combatLog.Clear();
             combatLog.AppendText("Game has been loaded.\n");
-            string path = @"C:\Users\Guy.Goudeau\Desktop\Homework\Second Semester\WindowsFormsApplication2\WindowsFormsApplication2\Saves\Stats";
+            string path = Environment.CurrentDirectory + @"\Saves\Stats";
             Utilities.DeserializeXML<SaveGameData>(path);
             SaveGameData save = Utilities.DeserializeXML<SaveGameData>(path);
             player.health = save.SaveHealth;
